@@ -4891,5 +4891,25 @@ render();
 })();
 
 </script>
+<script>/* track.js */
+/* Rough usage counter: no cookies, no personal data. Counts only on the live GitHub Pages link. */
+(function () {
+  if (!/github\.io$/.test(location.hostname)) return;
+  var NS = 'shattour-mm', API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(k) { try { fetch(API + k, { mode: 'cors', keepalive: true }).catch(function () {}); } catch (e) {} }
+  try {
+    if (!localStorage.getItem('mm-seen')) { localStorage.setItem('mm-seen', '1'); hit('devices'); }
+  } catch (e) {}
+  hit('opens');
+  var last = '';
+  function onRoute() {
+    var h = location.hash || '';
+    if (/^#l-\d+-\d+/.test(h) && h !== last) { last = h; hit('lessons'); }
+  }
+  window.addEventListener('hashchange', onRoute);
+  onRoute();
+})();
+
+</script>
 </body>
 </html>
