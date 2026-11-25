@@ -27,7 +27,7 @@
 </div>
 <button onclick="load()">تحديث · Refresh</button>
 <script>
-var API='https://abacus.jasoncameron.dev/get/shattour-mm/';
+var API='https://countapi.mileshilliard.com/api/v1/get/shattour-mm-';
 function get(k){
   var el=document.getElementById(k); el.textContent='…';
   return fetch(API+k).then(function(r){return r.json()}).then(function(j){el.textContent=('value' in j)?j.value:0}).catch(function(){el.textContent='؟'});
