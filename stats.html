@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>شطّور · الأرقام</title>
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:#fff;color:#0F172A;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
+  h1{font-size:26px;margin:0 0 6px}
+  p.sub{color:#475569;margin:0 0 24px;font-size:15px}
+  .grid{display:grid;gap:14px;width:100%;max-width:420px}
+  .card{border:1.5px solid #DBEAFE;border-radius:20px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center}
+  .card b{font-size:40px;color:#2563EB;font-variant-numeric:tabular-nums}
+  .card span{font-size:17px;font-weight:600}
+  .card small{display:block;color:#64748B;font-weight:400;font-size:13px;margin-top:2px}
+  button{margin-top:22px;border:0;background:#2563EB;color:#fff;font-size:16px;font-weight:600;padding:12px 26px;border-radius:999px;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>أرقام شطّور</h1>
+<p class="sub">عدد تقريبي — Rough usage</p>
+<div class="grid">
+  <div class="card"><span>أجهزة استخدمت الموقع<small>People (devices)</small></span><b id="devices">…</b></div>
+  <div class="card"><span>مرات فتح الموقع<small>Opens</small></span><b id="opens">…</b></div>
+  <div class="card"><span>دروس اتفتحت<small>Lessons opened</small></span><b id="lessons">…</b></div>
+</div>
+<button onclick="load()">تحديث · Refresh</button>
+<script>
+var API='https://abacus.jasoncameron.dev/get/shattour-mm/';
+function get(k){
+  var el=document.getElementById(k); el.textContent='…';
+  return fetch(API+k).then(function(r){return r.json()}).then(function(j){el.textContent=('value' in j)?j.value:0}).catch(function(){el.textContent='؟'});
+}
+function load(){ get('devices').then(function(){return get('opens')}).then(function(){return get('lessons')}); }
+load();
+</script>
+</body>
+</html>
